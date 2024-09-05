@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace AdminLTEPro.Data
+namespace AdminLTEPro.Data;
+
+public interface IAdminLTEProDbSchemaMigrator
 {
-    public interface IAdminLTEProDbSchemaMigrator
-    {
-        Task MigrateAsync();
-    }
+    Task MigrateAsync();
 }

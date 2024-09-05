@@ -1,15 +1,14 @@
 ﻿using AdminLTEPro.Localization;
 using Volo.Abp.AspNetCore.Mvc;
 
-namespace AdminLTEPro.Controllers
+namespace AdminLTEPro.Controllers;
+
+/* Inherit your controllers from this class.
+ */
+public abstract class AdminLTEProController : AbpControllerBase
 {
-    /* Inherit your controllers from this class.
-     */
-    public abstract class AdminLTEProController : AbpController
+    protected AdminLTEProController()
     {
-        protected AdminLTEProController()
-        {
-            LocalizationResource = typeof(AdminLTEProResource);
-        }
+        LocalizationResource = typeof(AdminLTEProResource);
     }
 }

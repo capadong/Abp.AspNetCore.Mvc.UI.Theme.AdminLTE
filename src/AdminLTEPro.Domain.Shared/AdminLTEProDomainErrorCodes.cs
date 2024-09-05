@@ -1,7 +1,6 @@
-﻿namespace AdminLTEPro
+﻿namespace AdminLTEPro;
+
+public static class AdminLTEProDomainErrorCodes
 {
-    public static class AdminLTEProDomainErrorCodes
-    {
-        /* You can add your business exception error codes here, as constants */
-    }
+    /* You can add your business exception error codes here, as constants */
 }

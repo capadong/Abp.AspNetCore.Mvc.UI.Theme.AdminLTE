@@ -4,15 +4,14 @@ using System.Text;
 using AdminLTEPro.Localization;
 using Volo.Abp.Application.Services;
 
-namespace AdminLTEPro
+namespace AdminLTEPro;
+
+/* Inherit your application services from this class.
+ */
+public abstract class AdminLTEProAppService : ApplicationService
 {
-    /* Inherit your application services from this class.
-     */
-    public abstract class AdminLTEProAppService : ApplicationService
+    protected AdminLTEProAppService()
     {
-        protected AdminLTEProAppService()
-        {
-            LocalizationResource = typeof(AdminLTEProResource);
-        }
+        LocalizationResource = typeof(AdminLTEProResource);
     }
 }

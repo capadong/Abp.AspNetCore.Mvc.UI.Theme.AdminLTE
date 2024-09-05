@@ -3,7 +3,7 @@
   <Import Project="..\..\common.props" />
   
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
@@ -15,7 +15,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageVersion>0.7.3</PackageVersion>
+    <PackageVersion>1.0.0</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,11 +32,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Account.Web.IdentityServer" Version="4.4.2" />
-    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy" Version="4.4.2" />
-    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared" Version="4.4.2" />
-    <PackageReference Include="Volo.Abp.Identity.Web" Version="4.4.2" />
-    <PackageReference Include="Volo.Abp.TenantManagement.Web" Version="4.4.2" />
+    <PackageReference Include="Volo.Abp.Account.Web.IdentityServer" Version="8.2.3" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy" Version="8.2.3" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared" Version="8.2.3" />
+    <PackageReference Include="Volo.Abp.Identity.Web" Version="8.2.3" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Web" Version="8.2.3" />
   </ItemGroup>
 
 </Project>

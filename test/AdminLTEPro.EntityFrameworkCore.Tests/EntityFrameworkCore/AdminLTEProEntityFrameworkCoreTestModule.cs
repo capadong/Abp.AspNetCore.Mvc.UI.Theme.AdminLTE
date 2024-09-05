@@ -6,57 +6,77 @@ using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Sqlite;
+using Volo.Abp.FeatureManagement;
 using Volo.Abp.Modularity;
+using Volo.Abp.PermissionManagement;
+using Volo.Abp.SettingManagement;
+using Volo.Abp.Uow;
 
-namespace AdminLTEPro.EntityFrameworkCore
+namespace AdminLTEPro.EntityFrameworkCore;
+
+[DependsOn(
+    typeof(AdminLTEProApplicationTestModule),
+    typeof(AdminLTEProEntityFrameworkCoreModule),
+    typeof(AbpEntityFrameworkCoreSqliteModule)
+    )]
+public class AdminLTEProEntityFrameworkCoreTestModule : AbpModule
 {
-    [DependsOn(
-        typeof(AdminLTEProEntityFrameworkCoreDbMigrationsModule),
-        typeof(AdminLTEProTestBaseModule),
-        typeof(AbpEntityFrameworkCoreSqliteModule)
-        )]
-    public class AdminLTEProEntityFrameworkCoreTestModule : AbpModule
+    private SqliteConnection? _sqliteConnection;
+
+    public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        private SqliteConnection _sqliteConnection;
-
-        public override void ConfigureServices(ServiceConfigurationContext context)
+        Configure<FeatureManagementOptions>(options =>
         {
-            ConfigureInMemorySqlite(context.Services);
-        }
-
-        private void ConfigureInMemorySqlite(IServiceCollection services)
+            options.SaveStaticFeaturesToDatabase = false;
+            options.IsDynamicFeatureStoreEnabled = false;
+        });
+        Configure<PermissionManagementOptions>(options =>
         {
-            _sqliteConnection = CreateDatabaseAndGetConnection();
+            options.SaveStaticPermissionsToDatabase = false;
+            options.IsDynamicPermissionStoreEnabled = false;
+        });
+        Configure<SettingManagementOptions>(options =>
+        {
+            options.SaveStaticSettingsToDatabase = false;
+            options.IsDynamicSettingStoreEnabled = false;
+        });
+        context.Services.AddAlwaysDisableUnitOfWorkTransaction();
 
-            services.Configure<AbpDbContextOptions>(options =>
+        ConfigureInMemorySqlite(context.Services);
+    }
+
+    private void ConfigureInMemorySqlite(IServiceCollection services)
+    {
+        _sqliteConnection = CreateDatabaseAndGetConnection();
+
+        services.Configure<AbpDbContextOptions>(options =>
+        {
+            options.Configure(context =>
             {
-                options.Configure(context =>
-                {
-                    context.DbContextOptions.UseSqlite(_sqliteConnection);
-                });
+                context.DbContextOptions.UseSqlite(_sqliteConnection);
             });
-        }
+        });
+    }
 
-        public override void OnApplicationShutdown(ApplicationShutdownContext context)
+    public override void OnApplicationShutdown(ApplicationShutdownContext context)
+    {
+        _sqliteConnection?.Dispose();
+    }
+
+    private static SqliteConnection CreateDatabaseAndGetConnection()
+    {
+        var connection = new AbpUnitTestSqliteConnection("Data Source=:memory:");
+        connection.Open();
+
+        var options = new DbContextOptionsBuilder<AdminLTEProDbContext>()
+            .UseSqlite(connection)
+            .Options;
+
+        using (var context = new AdminLTEProDbContext(options))
         {
-            _sqliteConnection.Dispose();
+            context.GetService<IRelationalDatabaseCreator>().CreateTables();
         }
 
-        private static SqliteConnection CreateDatabaseAndGetConnection()
-        {
-            var connection = new SqliteConnection("Data Source=:memory:");
-            connection.Open();
-
-            var options = new DbContextOptionsBuilder<AdminLTEProMigrationsDbContext>()
-                .UseSqlite(connection)
-                .Options;
-
-            using (var context = new AdminLTEProMigrationsDbContext(options))
-            {
-                context.GetService<IRelationalDatabaseCreator>().CreateTables();
-            }
-
-            return connection;
-        }
+        return connection;
     }
 }

@@ -80,7 +80,7 @@
             _dataTable.ajax.reload();
         });
 
-        _$wrapper.find('button[name=CreateTenant]').click(function (e) {
+        _$wrapper.find('button[name=CreateTenant]').on('click',function (e) {
             e.preventDefault();
             _createModal.open();
         });

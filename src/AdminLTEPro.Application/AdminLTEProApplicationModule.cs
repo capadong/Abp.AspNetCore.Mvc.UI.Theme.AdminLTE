@@ -4,27 +4,28 @@ using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
+using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 
-namespace AdminLTEPro
+namespace AdminLTEPro;
+
+[DependsOn(
+    typeof(AdminLTEProDomainModule),
+    typeof(AbpAccountApplicationModule),
+    typeof(AdminLTEProApplicationContractsModule),
+    typeof(AbpIdentityApplicationModule),
+    typeof(AbpPermissionManagementApplicationModule),
+    typeof(AbpTenantManagementApplicationModule),
+    typeof(AbpFeatureManagementApplicationModule),
+    typeof(AbpSettingManagementApplicationModule)
+    )]
+public class AdminLTEProApplicationModule : AbpModule
 {
-    [DependsOn(
-        typeof(AdminLTEProDomainModule),
-        typeof(AbpAccountApplicationModule),
-        typeof(AdminLTEProApplicationContractsModule),
-        typeof(AbpIdentityApplicationModule),
-        typeof(AbpPermissionManagementApplicationModule),
-        typeof(AbpTenantManagementApplicationModule),
-        typeof(AbpFeatureManagementApplicationModule)
-        )]
-    public class AdminLTEProApplicationModule : AbpModule
+    public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        public override void ConfigureServices(ServiceConfigurationContext context)
+        Configure<AbpAutoMapperOptions>(options =>
         {
-            Configure<AbpAutoMapperOptions>(options =>
-            {
-                options.AddMaps<AdminLTEProApplicationModule>();
-            });
-        }
+            options.AddMaps<AdminLTEProApplicationModule>();
+        });
     }
 }

@@ -1,9 +1,13 @@
 # Abp.AspNetCore.Mvc.UI.Theme.AdminLTE
 
-[![NuGet](https://img.shields.io/nuget/v/Abp.AspNetCore.Mvc.UI.Theme.AdminLTE.svg?style=flat-square)](https://www.nuget.org/packages/Abp.AspNetCore.Mvc.UI.Theme.AdminLTE)
-[![NuGet Download](https://img.shields.io/nuget/dt/Abp.AspNetCore.Mvc.UI.Theme.AdminLTE.svg?style=flat-square)](https://www.nuget.org/packages/Abp.AspNetCore.Mvc.UI.Theme.AdminLTE)
 
 An [ABP](http://abp.io) theme module based on [AdminLTE](https://adminlte.io/)
+
+something changed:
+- Upgrade ABP to 8.2.3
+- Upgrade AdminLTE to 3.2
+- Upgrade .NET to 8.0
+
 
 ![demo](doc/images/demo.png)
 
@@ -13,7 +17,8 @@ An [ABP](http://abp.io) theme module based on [AdminLTE](https://adminlte.io/)
     
     * Web project:
 
-        `Install-Package Abp.AspNetCore.Mvc.UI.Theme.AdminLTE`
+        ~~`Install-Package Abp.AspNetCore.Mvc.UI.Theme.AdminLTE`~~
+    * This package is currently available only on GitHub and has not yet been published to NuGet.
 
 1. Replace theme module depend
 

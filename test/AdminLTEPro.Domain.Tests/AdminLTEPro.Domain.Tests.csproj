@@ -3,16 +3,18 @@
   <Import Project="..\..\common.props" />
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
     <RootNamespace>AdminLTEPro</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdminLTEPro.EntityFrameworkCore.Tests\AdminLTEPro.EntityFrameworkCore.Tests.csproj" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+    <ProjectReference Include="..\..\src\AdminLTEPro.Domain\AdminLTEPro.Domain.csproj" />
+    <ProjectReference Include="..\AdminLTEPro.TestBase\AdminLTEPro.TestBase.csproj" />
   </ItemGroup>
 
 </Project>

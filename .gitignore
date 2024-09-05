@@ -254,6 +254,12 @@ paket-files/
 # AdminLTEPro
 src/AdminLTEPro.Web/Logs/*
 src/AdminLTEPro.Web.Host/Logs/*
-src/AdminLTEPro.IdentityServer/Logs/*
+src/AdminLTEPro.AuthServer/Logs/*
 src/AdminLTEPro.HttpApi.Host/Logs/*
 src/AdminLTEPro.HttpApi.HostWithIds/Logs/*
+src/AdminLTEPro.DbMigrator/Logs/*
+src/AdminLTEPro.Blazor.Server/Logs/*
+src/AdminLTEPro.Blazor.Server.Tiered/Logs/*
+
+# Use abp install-libs to restore.
+**/wwwroot/libs/*

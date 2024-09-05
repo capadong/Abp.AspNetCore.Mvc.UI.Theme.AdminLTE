@@ -3,7 +3,8 @@
   <Import Project="..\..\common.props" />
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
     <RootNamespace>AdminLTEPro</RootNamespace>
   </PropertyGroup>
 
@@ -13,11 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Account.Application" Version="4.4.2" />
-    <PackageReference Include="Volo.Abp.Identity.Application" Version="4.4.2" />
-    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="4.4.2" />
-    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="4.4.2" />
-    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="4.4.2" />
+    <PackageReference Include="Volo.Abp.Account.Application" Version="8.2.3" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="8.2.3" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="8.2.3" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="8.2.3" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="8.2.3" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Application" Version="8.2.3" />
   </ItemGroup>
 
 </Project>

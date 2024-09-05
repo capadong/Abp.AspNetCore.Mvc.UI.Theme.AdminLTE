@@ -5,27 +5,34 @@ using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.TenantManagement;
+using Volo.Abp.SettingManagement;
+using Volo.Abp.VirtualFileSystem;
 
-namespace AdminLTEPro
+namespace AdminLTEPro;
+
+[DependsOn(
+    typeof(AdminLTEProApplicationContractsModule),
+    typeof(AbpAccountHttpApiClientModule),
+    typeof(AbpIdentityHttpApiClientModule),
+    typeof(AbpPermissionManagementHttpApiClientModule),
+    typeof(AbpTenantManagementHttpApiClientModule),
+    typeof(AbpFeatureManagementHttpApiClientModule),
+    typeof(AbpSettingManagementHttpApiClientModule)
+)]
+public class AdminLTEProHttpApiClientModule : AbpModule
 {
-    [DependsOn(
-        typeof(AdminLTEProApplicationContractsModule),
-        typeof(AbpAccountHttpApiClientModule),
-        typeof(AbpIdentityHttpApiClientModule),
-        typeof(AbpPermissionManagementHttpApiClientModule),
-        typeof(AbpTenantManagementHttpApiClientModule),
-        typeof(AbpFeatureManagementHttpApiClientModule)
-    )]
-    public class AdminLTEProHttpApiClientModule : AbpModule
-    {
-        public const string RemoteServiceName = "Default";
+    public const string RemoteServiceName = "Default";
 
-        public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(ServiceConfigurationContext context)
+    {
+        context.Services.AddHttpClientProxies(
+            typeof(AdminLTEProApplicationContractsModule).Assembly,
+            RemoteServiceName
+        );
+
+        Configure<AbpVirtualFileSystemOptions>(options =>
         {
-            context.Services.AddHttpClientProxies(
-                typeof(AdminLTEProApplicationContractsModule).Assembly,
-                RemoteServiceName
-            );
-        }
+            options.FileSets.AddEmbedded<AdminLTEProHttpApiClientModule>();
+        });
     }
 }

@@ -5,65 +5,73 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;
+using AdminLTEPro.EntityFrameworkCore;
 using AdminLTEPro.Localization;
 using AdminLTEPro.Web;
 using AdminLTEPro.Web.Menus;
 using Volo.Abp.AspNetCore.TestBase;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
+using Volo.Abp.OpenIddict;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.Validation.Localization;
 
-namespace AdminLTEPro
+namespace AdminLTEPro;
+
+[DependsOn(
+    typeof(AbpAspNetCoreTestBaseModule),
+    typeof(AdminLTEProWebModule),
+    typeof(AdminLTEProApplicationTestModule),
+    typeof(AdminLTEProEntityFrameworkCoreTestModule)
+)]
+public class AdminLTEProWebTestModule : AbpModule
 {
-    [DependsOn(
-        typeof(AbpAspNetCoreTestBaseModule),
-        typeof(AdminLTEProWebModule),
-        typeof(AdminLTEProApplicationTestModule)
-    )]
-    public class AdminLTEProWebTestModule : AbpModule
+    public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        public override void PreConfigureServices(ServiceConfigurationContext context)
+        context.Services.PreConfigure<IMvcBuilder>(builder =>
         {
-            context.Services.PreConfigure<IMvcBuilder>(builder =>
-            {
-                builder.PartManager.ApplicationParts.Add(new AssemblyPart(typeof(AdminLTEProWebModule).Assembly));
-            });
-        }
+            builder.PartManager.ApplicationParts.Add(new CompiledRazorAssemblyPart(typeof(AdminLTEProWebModule).Assembly));
+        });
 
-        public override void ConfigureServices(ServiceConfigurationContext context)
+        context.Services.GetPreConfigureActions<OpenIddictServerBuilder>().Clear();
+        PreConfigure<AbpOpenIddictAspNetCoreOptions>(options =>
         {
-            ConfigureLocalizationServices(context.Services);
-            ConfigureNavigationServices(context.Services);
-        }
+            options.AddDevelopmentEncryptionAndSigningCertificate = true;
+        });
+    }
 
-        private static void ConfigureLocalizationServices(IServiceCollection services)
+    public override void ConfigureServices(ServiceConfigurationContext context)
+    {
+        ConfigureLocalizationServices(context.Services);
+        ConfigureNavigationServices(context.Services);
+    }
+
+    private static void ConfigureLocalizationServices(IServiceCollection services)
+    {
+        var cultures = new List<CultureInfo> { new CultureInfo("en"), new CultureInfo("tr") };
+        services.Configure<RequestLocalizationOptions>(options =>
         {
-            var cultures = new List<CultureInfo> { new CultureInfo("en"), new CultureInfo("tr") };
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                options.DefaultRequestCulture = new RequestCulture("en");
-                options.SupportedCultures = cultures;
-                options.SupportedUICultures = cultures;
-            });
+            options.DefaultRequestCulture = new RequestCulture("en");
+            options.SupportedCultures = cultures;
+            options.SupportedUICultures = cultures;
+        });
 
-            services.Configure<AbpLocalizationOptions>(options =>
-            {
-                options.Resources
-                    .Get<AdminLTEProResource>()
-                    .AddBaseTypes(
-                        typeof(AbpValidationResource),
-                        typeof(AbpUiResource)
-                    );
-            });
-        }
-
-        private static void ConfigureNavigationServices(IServiceCollection services)
+        services.Configure<AbpLocalizationOptions>(options =>
         {
-            services.Configure<AbpNavigationOptions>(options =>
-            {
-                options.MenuContributors.Add(new AdminLTEProMenuContributor());
-            });
-        }
+            options.Resources
+                .Get<AdminLTEProResource>()
+                .AddBaseTypes(
+                    typeof(AbpValidationResource),
+                    typeof(AbpUiResource)
+                );
+        });
+    }
+
+    private static void ConfigureNavigationServices(IServiceCollection services)
+    {
+        services.Configure<AbpNavigationOptions>(options =>
+        {
+            options.MenuContributors.Add(new AdminLTEProMenuContributor());
+        });
     }
 }

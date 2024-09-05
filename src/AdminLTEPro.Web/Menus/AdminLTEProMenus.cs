@@ -1,11 +1,10 @@
-﻿namespace AdminLTEPro.Web.Menus
+﻿namespace AdminLTEPro.Web.Menus;
+
+public class AdminLTEProMenus
 {
-    public class AdminLTEProMenus
-    {
-        private const string Prefix = "AdminLTEPro";
-        public const string Home = Prefix + ".Home";
+    private const string Prefix = "AdminLTEPro";
+    public const string Home = Prefix + ".Home";
 
-        //Add your menu items here...
+    //Add your menu items here...
 
-    }
 }

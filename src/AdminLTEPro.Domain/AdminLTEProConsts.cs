@@ -1,9 +1,8 @@
-﻿namespace AdminLTEPro
-{
-    public static class AdminLTEProConsts
-    {
-        public const string DbTablePrefix = "App";
+﻿namespace AdminLTEPro;
 
-        public const string DbSchema = null;
-    }
+public static class AdminLTEProConsts
+{
+    public const string DbTablePrefix = "App";
+
+    public const string DbSchema = null;
 }

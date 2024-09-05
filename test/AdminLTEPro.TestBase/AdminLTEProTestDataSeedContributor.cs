@@ -2,15 +2,14 @@
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 
-namespace AdminLTEPro
-{
-    public class AdminLTEProTestDataSeedContributor : IDataSeedContributor, ITransientDependency
-    {
-        public Task SeedAsync(DataSeedContext context)
-        {
-            /* Seed additional test data... */
+namespace AdminLTEPro;
 
-            return Task.CompletedTask;
-        }
+public class AdminLTEProTestDataSeedContributor : IDataSeedContributor, ITransientDependency
+{
+    public Task SeedAsync(DataSeedContext context)
+    {
+        /* Seed additional test data... */
+
+        return Task.CompletedTask;
     }
 }

@@ -1,13 +1,12 @@
-﻿using AdminLTEPro.EntityFrameworkCore;
-using Volo.Abp.Modularity;
+﻿using Volo.Abp.Modularity;
 
-namespace AdminLTEPro
+namespace AdminLTEPro;
+
+[DependsOn(
+    typeof(AdminLTEProDomainModule),
+    typeof(AdminLTEProTestBaseModule)
+)]
+public class AdminLTEProDomainTestModule : AbpModule
 {
-    [DependsOn(
-        typeof(AdminLTEProEntityFrameworkCoreTestModule)
-        )]
-    public class AdminLTEProDomainTestModule : AbpModule
-    {
 
-    }
 }

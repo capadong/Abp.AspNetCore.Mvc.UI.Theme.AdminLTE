@@ -1,15 +1,14 @@
 ﻿using AdminLTEPro.Localization;
 using Volo.Abp.AspNetCore.Mvc.UI.RazorPages;
 
-namespace AdminLTEPro.Web.Pages
+namespace AdminLTEPro.Web.Pages;
+
+/* Inherit your PageModel classes from this class.
+ */
+public abstract class AdminLTEProPageModel : AbpPageModel
 {
-    /* Inherit your PageModel classes from this class.
-     */
-    public abstract class AdminLTEProPageModel : AbpPageModel
+    protected AdminLTEProPageModel()
     {
-        protected AdminLTEProPageModel()
-        {
-            LocalizationResourceType = typeof(AdminLTEProResource);
-        }
+        LocalizationResourceType = typeof(AdminLTEProResource);
     }
 }

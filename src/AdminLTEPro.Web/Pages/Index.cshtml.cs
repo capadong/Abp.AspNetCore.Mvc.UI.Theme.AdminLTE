@@ -1,10 +1,9 @@
-﻿namespace AdminLTEPro.Web.Pages
+﻿namespace AdminLTEPro.Web.Pages;
+
+public class IndexModel : AdminLTEProPageModel
 {
-    public class IndexModel : AdminLTEProPageModel
+    public void OnGet()
     {
-        public void OnGet()
-        {
-            
-        }
+
     }
 }

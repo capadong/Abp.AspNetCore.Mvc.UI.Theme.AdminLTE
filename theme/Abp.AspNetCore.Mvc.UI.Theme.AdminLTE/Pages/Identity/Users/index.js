@@ -37,7 +37,8 @@
                                     action: function (data) {
                                         _permissionsModal.open({
                                             providerName: 'U',
-                                            providerKey: data.record.id
+                                            providerKey: data.record.id,
+                                            providerKeyDisplayName:data.record.userName
                                         });
                                     }
                                 },
